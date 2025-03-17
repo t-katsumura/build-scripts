@@ -10,8 +10,28 @@ on:
         default: ""
   workflow_call:
     inputs:
+      go-version:
+        description: "go-version for setup-go job"
+        required: false
+        type: string
+        default: "stable"
+      go-version-file:
+        description: "go-version-file for setup-go job"
+        required: false
+        type: string
+        default: ""
+      check-latest:
+        description: "check-latest for setup-go job"
+        required: false
+        type: boolean
+        default: true
+      cache:
+        description: "cache for setup-go job"
+        required: false
+        type: boolean
+        default: false
       args:
-        description: ""
+        description: "additional args for make go-vet"
         required: false
         type: string
         default: ""
@@ -26,5 +46,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: stable
+          go-version: ${{ inputs.go-version }}
+          go-version-file: ${{ inputs.go-version-file }}
+          check-latest: ${{ inputs.check-latest }}
+          cache: ${{ inputs.cache }}
       - run: make go-vet ARGS="${{ inputs.args }}"
