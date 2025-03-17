@@ -2,12 +2,13 @@ INCLUDED += go # Basename of this makefile.
 .DEFAULT_GOAL := go-help # Basename + "-help"
 
 GO_CMD ?= go
+GOFMT_CMD ?= gofmt
 # go vet envs.
 GO_VET_TARGET ?= ./...
 GO_VET_OPTION ?=
 # go fmt envs.
-GO_FMT_TARGET ?= ./...
-GO_FMT_OPTION ?=
+GO_FMT_TARGET ?= ./
+GO_FMT_OPTION ?= -l -e
 
 
 ################################################################################
@@ -23,10 +24,11 @@ TARGETS:
 
 VARIABLES [default value]:
   - GO_CMD         : go command. [go]
+  - GOFMT_CMD      : go format command. [gofmt]
   - GO_VET_TARGET  : go vet target. [./...]
   - GO_VET_OPTION  : go vet command line option. []
-  - GO_FMT_TARGET  : go fmt target. [./...]
-  - GO_FMT_OPTION  : go fmt command line option. []
+  - GO_FMT_TARGET  : go fmt target. [./]
+  - GO_FMT_OPTION  : go fmt command line option. [-l -e]
 
 REFERENCES:
   - https://pkg.go.dev/cmd/vet
@@ -106,14 +108,16 @@ go-vet:
 .PHONY: go-fmt-usage
 go-fmt-usage:
 	# Usage : make go-fmt ARGS=""
-	# Exec  : $$(GO_CMD) fmt $$(ARGS) $$(GO_FMT_OPTION) $$(GO_FMT_TARGET)
+	# Exec  : $$(GOFMT_CMD) $$(ARGS) $$(GO_FMT_OPTION) $$(GO_FMT_TARGET)
 	# Desc  : Run go fmt for the specified targets.
-	#         Run `go help fmt` to show help.
+	#         Run `gofmt --help` to show help.
 	# Examples:
 	#   - make go-fmt
 	#   - make go-fmt ARGS=""
 
 .PHONY: go-fmt
 go-fmt:
-	$(GO_CMD) fmt $(ARGS) $(GO_FMT_OPTION) $(GO_FMT_TARGET)
+	$(GOFMT_CMD) $(ARGS) $(GO_FMT_OPTION) $(GO_FMT_TARGET) > gofmt.tmp
+	@cat gofmt.tmp
+	@test ! -s gofmt.tmp; rm -f gofmt.tmp
 #______________________________________________________________________________#
