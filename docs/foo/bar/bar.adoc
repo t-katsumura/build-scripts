@@ -1,0 +1,6 @@
+
+= My book
+
+:data-uri:
+
+include::basic.adoc[]

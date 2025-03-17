@@ -1,0 +1,11 @@
+:experimental:
+:icons: font
+:reproducible:
+:listing-caption: Listing
+:source-highlighter: highlightjs
+:toc: top
+:sectnums:
+:toc-title: FOOBARBAZ
+:chapter-label:
+:company: MyCompany
+:doctype: book

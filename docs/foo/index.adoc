@@ -1,0 +1,13 @@
+= My Foo Book
+:doctype: book
+:toc: left
+:toclevels: 5
+:data-uri:
+:sectnums:
+:sectlinks:
+:sectanchors:
+:compress:
+:pdf-fontsdir: docs/fonts/
+
+include::basic.adoc[]
+include::bar/basic.adoc[]

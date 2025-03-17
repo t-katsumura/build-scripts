@@ -1,0 +1,35 @@
+name: Go Vet
+
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: ""
+        required: false
+        type: string
+        default: ""
+  workflow_call:
+    inputs:
+      timeout-minutes:
+        description: ""
+        required: false
+        type: number
+        default: 10
+      args:
+        description: ""
+        required: false
+        type: string
+        default: ""
+  push:
+    branches: ["**"]
+
+jobs:
+  vet:
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: make go-vet ARGS="${{ inputs.args }}"
