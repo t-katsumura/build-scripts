@@ -24,12 +24,12 @@ on:
         description: "check-latest for setup-go job"
         required: false
         type: boolean
-        default: true
+        default: 'true'
       cache:
         description: "cache for setup-go job"
         required: false
         type: boolean
-        default: false
+        default: 'false'
       args:
         description: "additional args for make go-vet"
         required: false
@@ -37,6 +37,9 @@ on:
         default: ""
   push:
     branches: ["**"]
+
+permissions:
+  contents: read 
 
 jobs:
   vet:
