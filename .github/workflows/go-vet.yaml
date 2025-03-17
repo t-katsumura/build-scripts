@@ -10,11 +10,6 @@ on:
         default: ""
   workflow_call:
     inputs:
-      timeout-minutes:
-        description: ""
-        required: false
-        type: number
-        default: 10
       args:
         description: ""
         required: false
@@ -26,7 +21,7 @@ on:
 jobs:
   vet:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ inputs.timeout-minutes }}
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
